@@ -1,0 +1,107 @@
+<!-- Author : Omer Saleem Wahab
+Registration number: CS151054
+Assignment # 1
+Draw a graph in a browser window using Three.js. 
+
+**NOTE: Import Three.js in same folder before running the file**
+
+-->
+
+
+
+<html>
+
+<head>
+    <title>Computer Graphics - Assignment 1 - Draw a graph in a browser window using Three.js. Your output should look
+        like the following:</title>
+</head>
+
+<body>
+    <script src="three.js"></script>
+    <script>
+        var scene = new THREE.Scene();
+        var camera = new THREE.OrthographicCamera(-1, 1, 1, -1, 0, 1);
+
+        var renderer = new THREE.WebGLRenderer();
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        document.body.appendChild(renderer.domElement);
+        scene.background = new THREE.Color(0xffffff);
+
+        var material = new THREE.LineBasicMaterial({ color: 0xD3D3D3 });
+        var material2 = new THREE.LineBasicMaterial({ color: 0x000000 });
+
+
+        var geometry = new THREE.Geometry();
+        // geometry.vertices.push(new THREE.Vector3(-1, 1, 0));
+        // geometry.vertices.push(new THREE.Vector3(1, 1, 0));
+        // geometry.vertices.push(new THREE.Vector3(-1, 1, 0));
+        var fact = 0.01;
+        var min = -1;
+        var plus = 1;
+        for (var i = 0; i < 200; i++) {
+            geometry.vertices.push(new THREE.Vector3(min, plus - fact, 0));
+            min = min * -1;
+            geometry.vertices.push(new THREE.Vector3(min, plus - fact, 0));
+            plus = plus - (fact);
+        }
+
+
+        var geometry2 = new THREE.Geometry();
+        // geometry2.vertices.push(new THREE.Vector3(-1, 1, 0));
+        // geometry2.vertices.push(new THREE.Vector3(-1, -1, 0));
+
+        var fact = 0.01;
+        var min = -1;
+        var plus = 1;
+        for (var j = 0; j < 200; j++) {
+            geometry2.vertices.push(new THREE.Vector3(-(plus - fact), min, 0));
+            min = min * -1;
+            geometry2.vertices.push(new THREE.Vector3(-(plus - fact), min, 0));
+            plus = plus - fact;
+        }
+
+        var geometry3 = new THREE.Geometry();
+
+        var fact = 0.1;
+        var min = -1;
+        var plus = 1;
+        for (var j = 0; j < 40; j++) {
+            geometry3.vertices.push(new THREE.Vector3(-(plus - fact), min, 0));
+            min = min * -1;
+            geometry3.vertices.push(new THREE.Vector3(-(plus - fact), min, 0));
+            plus = plus - fact;
+        }
+
+        var geometry4 = new THREE.Geometry();
+
+        var fact = 0.1;
+        var min = -1;
+        var plus = 1;
+        for (var i = 0; i < 40; i++) {
+            geometry4.vertices.push(new THREE.Vector3(min, plus - fact, 0));
+            min = min * -1;
+            geometry4.vertices.push(new THREE.Vector3(min, plus - fact, 0));
+            plus = plus - (fact);
+        }
+
+
+        var line = new THREE.Line(geometry, material);
+        var line2 = new THREE.Line(geometry2, material);
+        var line3 = new THREE.Line(geometry3, material2);
+        var line4 = new THREE.Line(geometry4, material2);
+
+        scene.add(line, line2, line3, line4);
+
+
+
+        var render = function () {
+            requestAnimationFrame(render);
+
+            renderer.render(scene, camera);
+        };
+
+        render();
+    </script>
+</body>
+
+</html>
